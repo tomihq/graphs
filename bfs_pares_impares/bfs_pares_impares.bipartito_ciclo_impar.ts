@@ -54,12 +54,14 @@ function reconstruirCicloImpar(u: number, v: number, parent: (number | null)[]):
 const bipartitoCicloImparBFS = (graphBFS: number[][]) =>{
     const { parent, dist } = bfs(graphBFS, 0); //O(V+E)
 
+    //0. Me guardo la lista de los pares e impares recorriendo la lista de distancia de los nodos del arbol desde la raiz. Cada valor en la lista corresponde a la distancia a la raíz. El elemento en cuestión lo representa el índice.
     const pares: number[] = [];
     const impares: number[] = [];
     for(let i = 0; i<dist.length; i++){
         dist[i] % 2 == 0 ? pares.push(i) : impares.push(i);
     }
 
+     //1. Recorro el array de parents y rdo que cada valor que hay en ese indice es el padre en el grafo origianl. 
     const treeEdges: number[][] = Array(graphBFS.length).fill(0).map(() => []);
     const n = parent.length;
     for(let i = 0; i<n; i++){
@@ -70,6 +72,7 @@ const bipartitoCicloImparBFS = (graphBFS: number[][]) =>{
         }
     }
 
+    //2. Recorro todas las aristas del grafo original y me quedo con las que no estan en el arbol.
     const difference: number[][] = Array(graphBFS.length).fill(0).map(() => []);
     for (let u = 0; u < graphBFS.length; u++) {
         for (const v of graphBFS[u]) {
@@ -79,7 +82,7 @@ const bipartitoCicloImparBFS = (graphBFS: number[][]) =>{
         }
     }
 
-    // Reviso si existe una arista en difference que conecte dos nodos pares o dos nodos impares
+    // 3. Reviso si existe una arista en difference que conecte dos nodos pares o dos nodos impares
     for (let u = 0; u < difference.length; u++) {
         for (const v of difference[u]) {
             if ((pares.includes(u) && pares.includes(v)) || (impares.includes(u) && impares.includes(v))) {

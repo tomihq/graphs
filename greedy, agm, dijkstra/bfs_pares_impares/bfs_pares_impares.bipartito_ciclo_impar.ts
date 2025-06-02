@@ -53,7 +53,6 @@ function reconstruirCicloImpar(u: number, v: number, parent: (number | null)[]):
 
 const bipartitoCicloImparBFS = (graphBFS: number[][]) =>{
     const { parent, dist } = bfs(graphBFS, 0); //O(V+E)
-
     //0. Me guardo la lista de los pares e impares recorriendo la lista de distancia de los nodos del arbol desde la raiz. Cada valor en la lista corresponde a la distancia a la raíz. El elemento en cuestión lo representa el índice.
     const pares: number[] = [];
     const impares: number[] = [];
@@ -96,11 +95,7 @@ const bipartitoCicloImparBFS = (graphBFS: number[][]) =>{
         }
     }
 
-    return {
-        bipartito: true,
-        P: pares,
-        I: impares
-    };
+    return { bipartito: true, P: pares, I: impares };
 };
 
 const graphBFS = [

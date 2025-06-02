@@ -1,0 +1,1 @@
+Cada archivo representa una solución a cada ítem del ejercicio de BFS del PDF adjunto.
